@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "722951953242",
+    "project_id": "talkloop-49bdc",
+    "storage_bucket": "talkloop-49bdc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722951953242:android:12f0f37a8f701b5585b163",
+        "android_client_info": {
+          "package_name": "com.talkloop.talkloop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFKdA3sC-S_XR70RAPKgdwFB1ZMlgoOX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
