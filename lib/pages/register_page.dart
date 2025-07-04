@@ -11,6 +11,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
 
   Future<void> registerUser() async {
     try {
@@ -21,7 +22,7 @@ class _RegisterPageState extends State<RegisterPage> {
       await FirebaseFirestore.instance.collection('users').doc(credential.user!.uid).set({
         'uid': credential.user!.uid,
         'email': credential.user!.email,
-        'name': 'User',
+        'name': nameController.text.trim(),
         'photoUrl': '',
       });
       Navigator.pop(context);
@@ -38,6 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            TextField(controller: nameController, decoration: InputDecoration(labelText: "Name",labelStyle: TextStyle(fontSize: 16)),),
             TextField(controller: emailController, decoration: const InputDecoration(labelText: 'Email')),
             TextField(controller: passwordController, decoration: const InputDecoration(labelText: 'Password'), obscureText: true),
             const SizedBox(height: 20),
