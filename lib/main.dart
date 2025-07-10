@@ -1,29 +1,46 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'pages/login_page.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
   await Firebase.initializeApp();
+
+  // Activate App Check (for development, use debug; for production, use playIntegrity or deviceCheck)
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug, // Change to playIntegrity in release
+    appleProvider: AppleProvider.debug,     // Change to deviceCheck in release
+  );
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Firebase Chat App',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      title: 'Talkloop Chat',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
+      ),
       home: const LoginPage(),
     );
   }
 }
 
-// ========== models/message_model.dart ==========
+// =======================
+// ✅ Message Model
+// =======================
 class MessageModel {
   final String senderId;
   final String text;
@@ -39,10 +56,17 @@ class MessageModel {
 
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
-      senderId: json['senderId'],
-      text: json['text'],
+      senderId: json['senderId'] ?? '',
+      text: json['text'] ?? '',
       imageUrl: json['imageUrl'] ?? '',
       timestamp: (json['timestamp'] as Timestamp).toDate(),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'senderId': senderId,
+    'text': text,
+    'imageUrl': imageUrl,
+    'timestamp': Timestamp.fromDate(timestamp),
+  };
 }
