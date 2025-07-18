@@ -205,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                         ),
                         onPressed: registerUser,
-                        child: const Text("Register", style: TextStyle(fontSize: 16)),
+                        child: const Text("Register", style: TextStyle(fontSize: 16,color: Colors.white)),
                       ),
                     )
                   ],
